@@ -22,7 +22,7 @@ def _set_bit(x, n):
     return x | (1 << n)
 
 class PiicoDev_Ultrasonic(object):
-    def __init__(self, bus=None, freq=None, sda=None, scl=None, address=_BASE_ADDRESS, id=None, minimum=0.0, maximum=100.0):
+    def __init__(self, bus=None, freq=None, sda=None, scl=None, address=_BASE_ADDRESS, id=None):
         try:
             if compat_ind >= 1:
                 pass
@@ -32,8 +32,6 @@ class PiicoDev_Ultrasonic(object):
             print(compat_str)
         self.i2c = create_unified_i2c(bus=bus, freq=freq, sda=sda, scl=scl)
         self._address = address
-        self.minimum = minimum
-        self.maximum = maximum
         
         if type(id) is list and not all(v == 0 for v in id): # preference using the ID argument. ignore id if all elements zero
             assert all(x in [0,1] for x in id) and len(id) == 4, "id must be a 4-element list containing ones and zeros"
